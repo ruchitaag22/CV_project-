@@ -2,9 +2,9 @@ import cv2
 import numpy as np
 
 # --- Paths to your YOLOv3 files ---
-config_path = "D:/test/opencv/yolov3.cfg"
-weights_path = "D:/test/opencv/yolov3.weights"
-names_path = "D:/test/opencv/coco.names"
+config_path = "yolov3.cfg"
+weights_path = "yolov3.weights"
+names_path = "coco.names"
 
 # --- Load class names ---
 with open(names_path, 'r') as f:
@@ -34,8 +34,6 @@ while True:
         break
 
     height, width = frame.shape[:2]
-    frame= cv2.flip(frame, 1)
-    
 
     # Create blob from frame
     blob = cv2.dnn.blobFromImage(frame, scalefactor=1/255.0, size=(416, 416), swapRB=True, crop=False)
@@ -55,7 +53,7 @@ while True:
             scores = detection[5:]  # class probabilities
             class_id = np.argmax(scores)
             confidence = scores[class_id]
-            if confidence > 0.3:
+            if confidence > 0.5:
                 center_x = int(detection[0] * width)
                 center_y = int(detection[1] * height)
                 w = int(detection[2] * width)
@@ -78,7 +76,7 @@ while True:
             color = colors[class_ids[i]]
             cv2.rectangle(frame, (x, y), (x + w, y + h), color, 2)
             cv2.putText(frame, label, (x, y - 10), cv2.FONT_HERSHEY_SIMPLEX, 0.5, color, 2)
-    #  # Flip the frame horizontally for a mirror effect
+
     # Show the output frame
     cv2.imshow("YOLOv3 Object Detection - Live", frame)
 

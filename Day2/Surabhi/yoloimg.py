@@ -2,13 +2,14 @@ import cv2
 import numpy as np
 
 # Load YOLOv3 model
-net = cv2.dnn.readNet("D:/test/opencv/yolov3.weights", "D:/test/opencv/yolov3.cfg")
+net = cv2.dnn.readNet("yolov3.weights", "yolov3.cfg")
+
 # Load class labels
-with open("D:/test/opencv/coco.names", "r") as f:
+with open("coco.names", "r") as f:
     classes = [line.strip() for line in f.readlines()]
 
 # Load image
-image = cv2.imread('sample.jpg')
+image = cv2.imread("WIN_20250710_11_35_09_Pro.jpg")
 height, width = image.shape[:2]
 
 # Create input blob
@@ -46,7 +47,7 @@ for output in outputs:
             class_ids.append(class_id)
 
 # Non-max suppression to remove overlapping boxes
-indices = cv2.dnn.NMSBoxes(boxes, confidences, score_threshold=0.9, nms_threshold=0.4)
+indices = cv2.dnn.NMSBoxes(boxes, confidences, score_threshold=0.5, nms_threshold=0.4)
 
 for i in indices.flatten():
     x, y, w, h = boxes[i]
@@ -58,4 +59,3 @@ for i in indices.flatten():
 cv2.imshow("YOLO Object Detection", image)
 cv2.waitKey(0)
 cv2.destroyAllWindows()
-
