@@ -2,9 +2,9 @@ import cv2
 import numpy as np
 
 # --- Paths to your YOLOv3 files ---
-config_path = "c:/Users/ashwi/OneDrive/Desktop/CV/yolov3 (2).cfg"
-weights_path = "C:/Users/ashwi/OneDrive/Desktop/CV/yolov3.weights"
-names_path = "C:/Users/ashwi/OneDrive/Desktop/CV/coco.names"
+config_path = "yolov3.cfg"
+weights_path = "yolov3.weights"
+names_path = "coco.names"
 
 # --- Load class names ---
 with open(names_path, 'r') as f:
